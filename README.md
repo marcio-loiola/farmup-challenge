@@ -1,6 +1,6 @@
-# FarmUp Challenge - Fullstack Project
+# FarmUp Challenge - API REST
 
-Projeto fullstack com API REST Node.js + Cliente React para gerenciar cadastro de clientes.
+API REST Node.js para gerenciar cadastro de clientes.
 
 ## 🏗️ Estrutura do Projeto
 
@@ -12,10 +12,7 @@ farmup-challenge/
 │   ├── controllers/       # Lógica de negócio
 │   ├── data/             # Armazenamento em memória
 │   └── package.json      # Dependências do backend
-├── client/                # Frontend - React App
-│   ├── src/              # Código fonte React
-│   ├── public/           # Arquivos públicos
-│   └── package.json      # Dependências do frontend
+├── TESTE_MANUAL.md       # Guia de teste manual
 └── README.md             # Este arquivo
 ```
 
@@ -24,10 +21,10 @@ farmup-challenge/
 ### Pré-requisitos
 
 - Node.js (versão 14 ou superior)
-- npm ou yarn
+- npm
 - Git
 
-### 1. Executar a API (Backend)
+### Executar a API
 
 ```bash
 # Na raiz do projeto
@@ -42,64 +39,24 @@ npm start
 
 ✅ **Sucesso**: API rodando em `http://localhost:8080`
 
-### 2. Executar o Cliente (Frontend)
+## 🧪 Teste Rápido
 
 ```bash
-# Em outro terminal, na raiz do projeto  
-cd client
+# Testar se API está respondendo
+curl http://localhost:8080/
 
-# Instalar dependências
-yarn install
-
-# Iniciar servidor de desenvolvimento
-yarn start
-```
-
-✅ **Sucesso**: Cliente React rodando em `http://localhost:3000`
-
-## 🧪 Smoke Test - Validação Rápida
-
-Execute este teste para verificar se tudo está funcionando:
-
-### API Test
-```bash
-cd api && npm install && node server.js
-# Deve exibir: "Servidor rodando em http://localhost:8080"
-```
-
-### Cliente Test  
-```bash
-cd client && yarn install && yarn start
-# Deve exibir: "Compiled successfully!"
+# Listar clientes
+curl http://localhost:8080/clientes
 ```
 
 ## 📋 Funcionalidades
 
 ### API REST (/api)
 - ✅ Servidor Express.js na porta 8080
-- ✅ CORS configurado para permitir conexões do React
+- ✅ CORS configurado
 - ✅ Endpoints CRUD para clientes
 - ✅ Arquitetura em 3 camadas
-
-### Cliente React (/client)
-- ✅ Servidor de desenvolvimento na porta 3000
-- ✅ Create React App configurado
-- ✅ Browserslist atualizado
-- 🔄 Interface para consumir a API (em desenvolvimento)
-
-## 🔧 Melhorias Implementadas
-
-### ✅ Resolvido no Smoke Test
-- **Conflito de Portas**: API movida para porta 8080, React mantido em 3000
-- **CORS**: Configurado na API para permitir conexões do cliente
-- **Browserslist**: Atualizado para resolver warnings
-- **Dependências**: Todas instaladas corretamente
-
-### 🔄 Próximos Passos
-- Conectar cliente React à API
-- Implementar interface de cadastro de clientes  
-- Adicionar validações no frontend
-- Melhorar UI/UX
+- ✅ Validações e tratamento de erros
 
 ## 📚 Endpoints da API
 
@@ -132,14 +89,16 @@ cd client && yarn install && yarn start
 - Express.js  
 - CORS
 
-### Frontend  
-- React 18
-- Create React App
-- Yarn
+## 🧪 Testes
 
-## 🤝 Contribuindo
+Consulte o arquivo `TESTE_MANUAL.md` para instruções completas de teste.
 
-Este é um projeto educacional do programa de estágio da FarmUp.
+## 🔮 Próximos Passos
+
+- [ ] Frontend React (será desenvolvido em breve)
+- [ ] Banco de dados persistente
+- [ ] Autenticação/Autorização
+- [ ] Deploy em produção
 
 ## 📝 Licença
 
@@ -147,5 +106,5 @@ ISC
 
 ---
 
-**Status**: ✅ Base do projeto funcionando - Pronto para desenvolvimento
+**Status**: ✅ API funcionando - Pronta para integração com frontend
 
