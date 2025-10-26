@@ -200,8 +200,10 @@ const ClientForm = ({ addClient }) => {
       </Fab>
 
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle>Cadastrar Novo Cliente</DialogTitle>
-        <DialogContent>
+        <DialogTitle sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' } }}>
+          Cadastrar Novo Cliente
+        </DialogTitle>
+        <DialogContent sx={{ p: { xs: 2, md: 3 } }}>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
               {error}

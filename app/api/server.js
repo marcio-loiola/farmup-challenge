@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8080;
 
 // Middleware para CORS (permitir requisições do cliente React)
 app.use(cors({
-  origin: 'http://localhost:3000', // Porta padrão do React
+  origin: 'http://localhost:8080', // Porta padrão do React
   credentials: true
 }));
 
