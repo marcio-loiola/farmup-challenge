@@ -1,18 +1,63 @@
 version: '3.8'
+
 services:
+  # API Backend Service
   api:
-    build: ./api
-    container_name: farmaup-api
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: farmup-api
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    restart: unless-stopped
+    networks:
+      - farmup-network
+
+  # Client Frontend Service  
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: farmup-client
     ports:
       - "3000:3000"
-    volumes:
-      - ./api:/usr/src/app
-      - /usr/src/app/node_modules
-
-  client:
-    build: ./client
-    container_name: farmaup-client
-    ports:
-      - "8080:80"
+    environment:
+      - NODE_ENV=production
     depends_on:
       - api
+    restart: unless-stopped
+    networks:
+      - farmup-network
+
+  # Development Service (optional)
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: farmup-dev
+    ports:
+      - "8080:8080"  # API
+      - "5173:5173"  # Vite Dev Server
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./apps:/app/apps
+      - ./package.json:/app/package.json
+      - /app/node_modules
+      - /app/apps/api/node_modules
+      - /app/apps/client/node_modules
+    restart: unless-stopped
+    networks:
+      - farmup-network
+
+networks:
+  farmup-network:
+    driver: bridge
+
+volumes:
+  node_modules:
+  api_modules:
+  client_modules:

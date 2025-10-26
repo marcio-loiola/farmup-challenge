@@ -1,0 +1,43 @@
+{
+  "name": "farmup-challenge",
+  "version": "1.0.0",
+  "description": "FarmUp Challenge - Fullstack Client Management System",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/client"
+  ],
+  "scripts": {
+    "install:all": "npm install",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:client\"",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:client": "npm run dev --workspace=apps/client",
+    "build": "npm run build --workspace=apps/client",
+    "start": "npm run start --workspace=apps/api",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/farmup/challenge.git"
+  },
+  "keywords": [
+    "farmup",
+    "challenge",
+    "fullstack",
+    "react",
+    "nodejs",
+    "express",
+    "client-management"
+  ],
+  "author": "FarmUp Team",
+  "license": "ISC"
+}
