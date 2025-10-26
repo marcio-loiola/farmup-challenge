@@ -8,6 +8,12 @@ function validarCampos(nome, email, telefone, cidade) {
   return nome && email && telefone && cidade;
 }
 
+// Valida e retorna ID como número ou null se inválido
+function validarId(id) {
+  const numero = parseInt(id);
+  return isNaN(numero) ? null : numero;
+}
+
 // Retorna erro 400 se validação falhar
 function erroValidacao(res) {
   return res.status(400).json({ 
@@ -22,6 +28,13 @@ function erroNaoEncontrado(res) {
   });
 }
 
+// Retorna erro 400 para ID inválido
+function erroIdInvalido(res) {
+  return res.status(400).json({ 
+    erro: 'ID inválido' 
+  });
+}
+
 // Lista todos os clientes
 function listarClientes(req, res) {
   const clientes = clientesData.obterTodos();
@@ -30,9 +43,12 @@ function listarClientes(req, res) {
 
 // Busca um cliente específico por ID
 function buscarCliente(req, res) {
-  const id = parseInt(req.params.id);
-  const cliente = clientesData.obterPorId(id);
+  const id = validarId(req.params.id);
+  if (id === null) {
+    return erroIdInvalido(res);
+  }
   
+  const cliente = clientesData.obterPorId(id);
   if (!cliente) {
     return erroNaoEncontrado(res);
   }
@@ -57,9 +73,12 @@ function criarCliente(req, res) {
 
 // Atualiza um cliente existente
 function atualizarCliente(req, res) {
-  const id = parseInt(req.params.id);
-  const { nome, email, telefone, cidade } = req.body;
+  const id = validarId(req.params.id);
+  if (id === null) {
+    return erroIdInvalido(res);
+  }
   
+  const { nome, email, telefone, cidade } = req.body;
   if (!validarCampos(nome, email, telefone, cidade)) {
     return erroValidacao(res);
   }
@@ -77,9 +96,12 @@ function atualizarCliente(req, res) {
 
 // Remove um cliente
 function removerCliente(req, res) {
-  const id = parseInt(req.params.id);
-  const removido = clientesData.remover(id);
+  const id = validarId(req.params.id);
+  if (id === null) {
+    return erroIdInvalido(res);
+  }
   
+  const removido = clientesData.remover(id);
   if (!removido) {
     return erroNaoEncontrado(res);
   }
