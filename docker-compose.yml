@@ -1,18 +1,18 @@
 version: '3.8'
 services:
   api:
-    build: .
+    build: ./api
     container_name: farmaup-api
     ports:
       - "3000:3000"
     volumes:
-      - .:/usr/src/app
+      - ./api:/usr/src/app
       - /usr/src/app/node_modules
 
-  # client:
-  #   build: ./client
-  #   container_name: farmaup-client
-  #   ports:
-  #     - "8080:80" # NGINX serves on port 80 of the container
-  #   depends_on:
-  #     - api
+  client:
+    build: ./client
+    container_name: farmaup-client
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
