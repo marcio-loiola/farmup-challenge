@@ -104,9 +104,26 @@ docker-compose up api client
 **Frontend:** React 19 + Vite 7 + Material-UI 7 + Axios  
 **DevOps:** Docker + Docker Compose
 
----
+## 🎁 Bônus Implementados
 
-## 🧪 Testes
+### ✅ **Bônus 1: Validação de Email Único**
+- **Funcionalidade**: Impede cadastro de emails duplicados
+- **Status HTTP**: 409 Conflict 
+- **Exemplo**: `POST /clientes` com email existente retorna erro
+
+### ✅ **Bônus 2: Filtro por Cidade**
+- **Funcionalidade**: Filtra clientes por cidade específica
+- **Uso**: `GET /clientes?cidade=Fortaleza`
+- **Case-insensitive**: `cidade=fortaleza` funciona igual
+
+### ✅ **Bônus 3: Busca por Nome Parcial**
+- **Funcionalidade**: Busca clientes por parte do nome
+- **Uso**: `GET /clientes?nome=ana` → retorna "Ana Souza"
+- **Case-insensitive**: Funciona com maiúscula/minúscula
+
+### 🔄 **Filtros Combinados**
+- **Exemplo**: `GET /clientes?cidade=São Paulo&nome=João`
+- **Resultado**: Clientes de São Paulo com "João" no nome
 
 Consulte `TESTE_MANUAL.md` para instruções detalhadas de teste.
 

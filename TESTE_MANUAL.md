@@ -117,7 +117,46 @@ curl -X DELETE http://localhost:8080/clientes/3
 
 ✅ **Esperado:** Status 204 (sem conteúdo)
 
+### 2.10 **BÔNUS 1: Testar Email Duplicado (409 Conflict)**
+```bash
+# 1. Criar cliente
+curl -X POST http://localhost:8080/clientes \
+  -H "Content-Type: application/json" \
+  -d '{"nome": "Pedro Lima", "email": "pedro@teste.com", "telefone": "(31) 99999-9999", "cidade": "Belo Horizonte"}'
+
+# 2. Tentar criar com mesmo email
+curl -X POST http://localhost:8080/clientes \
+  -H "Content-Type: application/json" \
+  -d '{"nome": "Outro Pedro", "email": "pedro@teste.com", "telefone": "(11) 88888-8888", "cidade": "São Paulo"}'
+```
+✅ **Esperado:** Segunda requisição retorna erro 409 "E-mail já cadastrado"
+
+### 2.11 **BÔNUS 2: Filtro por Cidade**
+```bash
+# Filtrar clientes de São Paulo
+curl "http://localhost:8080/clientes?cidade=São Paulo"
+
+# Teste case-insensitive
+curl "http://localhost:8080/clientes?cidade=são paulo"
+```
+✅ **Esperado:** Apenas clientes da cidade especificada
+
+### 2.12 **BÔNUS 3: Busca por Nome Parcial**
+```bash
+# Buscar por parte do nome
+curl "http://localhost:8080/clientes?nome=João"
+
+# Buscar case-insensitive  
+curl "http://localhost:8080/clientes?nome=maria"
+```
+✅ **Esperado:** Clientes com "João" ou "maria" em qualquer parte do nome
+
 ### 2.9 Verificar Deleção
+```bash
+curl http://localhost:8080/clientes/3
+```
+✅ **Esperado:** `{"erro": "Cliente não encontrado"}` (404)
+
 
 ```bash
 curl http://localhost:8080/clientes/3
@@ -240,6 +279,14 @@ docker-compose up api client
 - [ ] PUT /clientes/:id atualiza cliente
 - [ ] DELETE /clientes/:id remove cliente
 - [ ] CORS permite requisições do frontend
+
+### ✅ Bônus API (Diferenciais)
+
+- [ ] **Email único**: POST com email duplicado retorna 409
+- [ ] **Filtro cidade**: `?cidade=São Paulo` filtra corretamente
+- [ ] **Busca nome**: `?nome=João` encontra nomes parciais
+- [ ] **Case-insensitive**: Filtros funcionam com maiúscula/minúscula
+- [ ] **Filtros combinados**: `?cidade=X&nome=Y` funciona
 
 ### ✅ Frontend React
 
