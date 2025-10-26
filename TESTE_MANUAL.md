@@ -202,10 +202,13 @@ curl http://localhost:8080/clientes/3
 
 ### 3.4 Deletar Cliente
 
-1. **Clicar** no ícone lixeira de um cliente
-2. **Verificar:**
+1. **Clicar** no ícone lixeira (vermelho) de um cliente
+2. **Verificar:** Modal de confirmação aparece
+3. **Clicar** "Remover" para confirmar
+4. **Verificar:**
    - ✅ Cliente remove da lista imediatamente
-   - ✅ Total de clientes diminui
+   - ✅ Snackbar de sucesso aparece
+   - ✅ Contador de clientes diminui
 
 ### 3.5 Testar Responsividade
 
