@@ -2,10 +2,17 @@
 // Configuração do Express e inicialização do servidor
 
 const express = require('express');
+const cors = require('cors');
 const clientesRoutes = require('./routes/clientes');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
+
+// Middleware para CORS (permitir requisições do cliente React)
+app.use(cors({
+  origin: 'http://localhost:3000', // Porta padrão do React
+  credentials: true
+}));
 
 // Middleware para processar JSON no corpo das requisições
 app.use(express.json());

@@ -1,303 +1,151 @@
-# API REST de Clientes - FarmUp Challenge
+# FarmUp Challenge - Fullstack Project
 
-API REST simples para gerenciar cadastro de clientes, desenvolvida com Node.js e Express.
-
-## 📋 Descrição
-
-Este projeto é uma API REST que permite realizar operações CRUD (Create, Read, Update, Delete) em um cadastro de clientes. Foi desenvolvida seguindo boas práticas de código limpo e arquitetura em 3 camadas, ideal para aprendizado de iniciantes em desenvolvimento backend.
-
-### Características
-
-- **Arquitetura em 3 camadas**: Separação clara entre rotas, controladores e dados
-- **Código limpo**: Funções pequenas, nomes descritivos, comentários em português
-- **Simplicidade**: Sem padrões complexos, fácil de entender e modificar
-- **Armazenamento em memória**: Dados mantidos em memória (reinicia ao parar o servidor)
-
-### Campos do Cliente
-
-Cada cliente possui os seguintes campos:
-- `id`: Identificador único (gerado automaticamente)
-- `nome`: Nome completo do cliente
-- `email`: Endereço de e-mail
-- `telefone`: Número de telefone
-- `cidade`: Cidade onde o cliente reside
-
-## 🚀 Instalação
-
-### Pré-requisitos
-
-- Node.js (versão 14 ou superior)
-- npm (gerenciador de pacotes do Node.js)
-
-### Passos para instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/marcio-loiola/farmup-challenge.git
-cd farmup-challenge
-```
-
-2. Instale as dependências:
-```bash
-npm install
-```
-
-3. Inicie o servidor:
-```bash
-npm start
-```
-
-O servidor estará rodando em `http://localhost:3000`
-
-## 📚 Endpoints da API
-
-### 1. Listar todos os clientes
-
-**GET** `/clientes`
-
-Retorna a lista de todos os clientes cadastrados.
-
-**Exemplo de requisição:**
-```bash
-curl http://localhost:3000/clientes
-```
-
-**Resposta (200 OK):**
-```json
-[
-  {
-    "id": 1,
-    "nome": "João Silva",
-    "email": "joao@exemplo.com",
-    "telefone": "(11) 98765-4321",
-    "cidade": "São Paulo"
-  },
-  {
-    "id": 2,
-    "nome": "Maria Santos",
-    "email": "maria@exemplo.com",
-    "telefone": "(21) 91234-5678",
-    "cidade": "Rio de Janeiro"
-  }
-]
-```
-
-### 2. Buscar cliente por ID
-
-**GET** `/clientes/:id`
-
-Retorna os dados de um cliente específico.
-
-**Exemplo de requisição:**
-```bash
-curl http://localhost:3000/clientes/1
-```
-
-**Resposta (200 OK):**
-```json
-{
-  "id": 1,
-  "nome": "João Silva",
-  "email": "joao@exemplo.com",
-  "telefone": "(11) 98765-4321",
-  "cidade": "São Paulo"
-}
-```
-
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
-```
-
-### 3. Criar novo cliente
-
-**POST** `/clientes`
-
-Cria um novo cliente no sistema.
-
-**Exemplo de requisição:**
-```bash
-curl -X POST http://localhost:3000/clientes \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Pedro Oliveira",
-    "email": "pedro@exemplo.com",
-    "telefone": "(31) 99876-5432",
-    "cidade": "Belo Horizonte"
-  }'
-```
-
-**Resposta (201 Created):**
-```json
-{
-  "id": 3,
-  "nome": "Pedro Oliveira",
-  "email": "pedro@exemplo.com",
-  "telefone": "(31) 99876-5432",
-  "cidade": "Belo Horizonte"
-}
-```
-
-**Resposta de erro (400 Bad Request):**
-```json
-{
-  "erro": "Todos os campos são obrigatórios"
-}
-```
-
-### 4. Atualizar cliente
-
-**PUT** `/clientes/:id`
-
-Atualiza os dados de um cliente existente.
-
-**Exemplo de requisição:**
-```bash
-curl -X PUT http://localhost:3000/clientes/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "João Silva Santos",
-    "email": "joao.silva@exemplo.com",
-    "telefone": "(11) 98765-4321",
-    "cidade": "São Paulo"
-  }'
-```
-
-**Resposta (200 OK):**
-```json
-{
-  "id": 1,
-  "nome": "João Silva Santos",
-  "email": "joao.silva@exemplo.com",
-  "telefone": "(11) 98765-4321",
-  "cidade": "São Paulo"
-}
-```
-
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
-```
-
-### 5. Remover cliente
-
-**DELETE** `/clientes/:id`
-
-Remove um cliente do sistema.
-
-**Exemplo de requisição:**
-```bash
-curl -X DELETE http://localhost:3000/clientes/1
-```
-
-**Resposta (204 No Content):**
-```
-(sem conteúdo)
-```
-
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
-```
+Projeto fullstack com API REST Node.js + Cliente React para gerenciar cadastro de clientes.
 
 ## 🏗️ Estrutura do Projeto
 
 ```
 farmup-challenge/
-├── server.js              # Arquivo principal que inicia o servidor
-├── routes/
-│   └── clientes.js        # Define os endpoints da API
-├── controllers/
-│   └── clientesController.js  # Lógica de negócio
-├── data/
-│   └── clientes.js        # Armazenamento em memória
-├── package.json           # Dependências e scripts
-└── README.md             # Documentação (este arquivo)
+├── api/                    # Backend - API REST Node.js
+│   ├── server.js          # Servidor principal (porta 8080)
+│   ├── routes/            # Rotas da API
+│   ├── controllers/       # Lógica de negócio
+│   ├── data/             # Armazenamento em memória
+│   └── package.json      # Dependências do backend
+├── client/                # Frontend - React App
+│   ├── src/              # Código fonte React
+│   ├── public/           # Arquivos públicos
+│   └── package.json      # Dependências do frontend
+└── README.md             # Este arquivo
 ```
 
-### Arquitetura em 3 Camadas
+## 🚀 Como Executar
 
-1. **Camada de Rotas** (`routes/`): Define os endpoints HTTP e mapeia para os controladores
-2. **Camada de Controladores** (`controllers/`): Contém a lógica de negócio e validações
-3. **Camada de Dados** (`data/`): Gerencia o armazenamento e acesso aos dados
+### Pré-requisitos
 
-## 🧪 Testando a API
+- Node.js (versão 14 ou superior)
+- npm ou yarn
+- Git
 
-### Sequência de testes completa
+### 1. Executar a API (Backend)
 
 ```bash
-# 1. Verificar se o servidor está rodando
-curl http://localhost:3000/
+# Na raiz do projeto
+cd api
 
-# 2. Listar todos os clientes (deve ter 2 clientes iniciais)
-curl http://localhost:3000/clientes
+# Instalar dependências
+npm install
 
-# 3. Buscar um cliente específico
-curl http://localhost:3000/clientes/1
-
-# 4. Criar um novo cliente
-curl -X POST http://localhost:3000/clientes \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Ana Costa",
-    "email": "ana@exemplo.com",
-    "telefone": "(41) 98888-7777",
-    "cidade": "Curitiba"
-  }'
-
-# 5. Listar novamente para ver o novo cliente
-curl http://localhost:3000/clientes
-
-# 6. Atualizar o cliente criado (use o ID retornado)
-curl -X PUT http://localhost:3000/clientes/3 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Ana Costa Silva",
-    "email": "ana.costa@exemplo.com",
-    "telefone": "(41) 98888-7777",
-    "cidade": "Curitiba"
-  }'
-
-# 7. Remover o cliente
-curl -X DELETE http://localhost:3000/clientes/3
-
-# 8. Tentar buscar o cliente removido (deve retornar erro 404)
-curl http://localhost:3000/clientes/3
+# Iniciar servidor da API
+npm start
 ```
 
-### Testando com ferramentas gráficas
+✅ **Sucesso**: API rodando em `http://localhost:8080`
 
-Você também pode testar usando:
-- **Postman**: Importe os endpoints e teste visualmente
-- **Insomnia**: Alternativa ao Postman
-- **Thunder Client**: Extensão do VS Code
+### 2. Executar o Cliente (Frontend)
 
-## 📖 Aprendizados
+```bash
+# Em outro terminal, na raiz do projeto  
+cd client
 
-Este projeto demonstra conceitos fundamentais:
+# Instalar dependências
+yarn install
 
-- **REST API**: Padrão de arquitetura para APIs web
-- **CRUD**: Operações básicas de banco de dados
-- **Express.js**: Framework web minimalista para Node.js
-- **Arquitetura em camadas**: Separação de responsabilidades
-- **HTTP Status Codes**: 200, 201, 204, 400, 404
-- **JSON**: Formato de troca de dados
-- **Middleware**: Processamento de requisições (express.json)
+# Iniciar servidor de desenvolvimento
+yarn start
+```
+
+✅ **Sucesso**: Cliente React rodando em `http://localhost:3000`
+
+## 🧪 Smoke Test - Validação Rápida
+
+Execute este teste para verificar se tudo está funcionando:
+
+### API Test
+```bash
+cd api && npm install && node server.js
+# Deve exibir: "Servidor rodando em http://localhost:8080"
+```
+
+### Cliente Test  
+```bash
+cd client && yarn install && yarn start
+# Deve exibir: "Compiled successfully!"
+```
+
+## 📋 Funcionalidades
+
+### API REST (/api)
+- ✅ Servidor Express.js na porta 8080
+- ✅ CORS configurado para permitir conexões do React
+- ✅ Endpoints CRUD para clientes
+- ✅ Arquitetura em 3 camadas
+
+### Cliente React (/client)
+- ✅ Servidor de desenvolvimento na porta 3000
+- ✅ Create React App configurado
+- ✅ Browserslist atualizado
+- 🔄 Interface para consumir a API (em desenvolvimento)
+
+## 🔧 Melhorias Implementadas
+
+### ✅ Resolvido no Smoke Test
+- **Conflito de Portas**: API movida para porta 8080, React mantido em 3000
+- **CORS**: Configurado na API para permitir conexões do cliente
+- **Browserslist**: Atualizado para resolver warnings
+- **Dependências**: Todas instaladas corretamente
+
+### 🔄 Próximos Passos
+- Conectar cliente React à API
+- Implementar interface de cadastro de clientes  
+- Adicionar validações no frontend
+- Melhorar UI/UX
+
+## 📚 Endpoints da API
+
+### Base URL: `http://localhost:8080`
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/` | Informações da API |
+| GET | `/clientes` | Listar todos os clientes |
+| GET | `/clientes/:id` | Buscar cliente por ID |
+| POST | `/clientes` | Criar novo cliente |
+| PUT | `/clientes/:id` | Atualizar cliente |
+| DELETE | `/clientes/:id` | Remover cliente |
+
+### Exemplo de Cliente
+```json
+{
+  "id": 1,
+  "nome": "João Silva",
+  "email": "joao@exemplo.com", 
+  "telefone": "(11) 98765-4321",
+  "cidade": "São Paulo"
+}
+```
+
+## 🛠️ Tecnologias
+
+### Backend
+- Node.js
+- Express.js  
+- CORS
+
+### Frontend  
+- React 18
+- Create React App
+- Yarn
 
 ## 🤝 Contribuindo
 
-Este é um projeto educacional. Sugestões e melhorias são bem-vindas!
+Este é um projeto educacional do programa de estágio da FarmUp.
 
 ## 📝 Licença
 
 ISC
 
-## 👨‍💻 Autor
+---
 
-Desenvolvido como parte do desafio de estágio FarmUp 
+**Status**: ✅ Base do projeto funcionando - Pronto para desenvolvimento
+
