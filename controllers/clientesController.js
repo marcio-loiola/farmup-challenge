@@ -10,8 +10,8 @@ function validarCampos(nome, email, telefone, cidade) {
 
 // Valida e retorna ID como número ou null se inválido
 function validarId(id) {
-  const numero = parseInt(id);
-  return isNaN(numero) ? null : numero;
+  const numero = parseInt(id, 10);
+  return isNaN(numero) || numero <= 0 ? null : numero;
 }
 
 // Retorna erro 400 se validação falhar
