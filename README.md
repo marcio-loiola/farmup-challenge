@@ -8,7 +8,7 @@ Sistema fullstack para gerenciar cadastro de clientes desenvolvido com Node.js, 
 
 ```
 farmup-challenge/
-├── apps/
+├── app/
 │   ├── api/                    # Backend - API REST Node.js
 │   │   ├── server.js          # Servidor Express (porta 8080)
 │   │   ├── controllers/       # Lógica de negócio
@@ -30,26 +30,23 @@ farmup-challenge/
 ### 🔧 Desenvolvimento Local
 
 ```bash
-# 1. Instalar dependências
+# 1. Instalar dependências na raiz
 npm install
 
-# 2. Executar API
-cd apps/api && npm start
+# 2. Executar API (Terminal 1)
+cd app/api && npm start
 # API: http://localhost:8080
 
-# 3. Executar Cliente (novo terminal)
-cd apps/client && npm run dev  
+# 3. Executar Cliente (Terminal 2)
+cd app/client && npm run dev  
 # Client: http://localhost:5173
 ```
 
 ### 🐳 Docker (Opcional)
 
 ```bash
-# Desenvolvimento
-docker-compose up dev
-
-# Produção
-docker-compose up api client
+# Build e executar
+docker-compose up --build
 ```
 
 ---
@@ -57,35 +54,14 @@ docker-compose up api client
 ## 🎯 Funcionalidades
 
 ### ✅ Implementadas
-- 📋 **Listar Clientes** - Interface com Material-UI
-- ➕ **Criar Cliente** - Formulário modal
-- 🗑️ **Deletar Cliente** - Remoção direta
-- 🌐 **API REST Completa** - CRUD endpoints
-- 🔄 **Integração Frontend/Backend** - Funcionando
+- 📋 **Listar Clientes** - Interface com Material-UI responsiva
+- ➕ **Criar Cliente** - Formulário modal com validação
+- 🗑️ **Deletar Cliente** - Remoção com confirmação
+- 🔍 **Filtros Avançados** - Por cidade e nome (bônus)
+- 🌐 **API REST Completa** - CRUD + validações
+- 🔄 **Integração Completa** - Frontend/Backend sincronizados
 
-### 📋 Campos do Cliente
-- **ID** - Gerado automaticamente
-- **Nome** - Nome completo
-- **Email** - Endereço de e-mail  
-- **Telefone** - Número de contato
-- **Cidade** - Localização
-
----
-
-## 📚 API Endpoints
-
-**Base URL:** `http://localhost:8080`
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/` | Informações da API |
-| GET | `/clientes` | Listar todos |
-| GET | `/clientes/:id` | Buscar por ID |
-| POST | `/clientes` | Criar novo |
-| PUT | `/clientes/:id` | Atualizar |
-| DELETE | `/clientes/:id` | Remover |
-
-### Exemplo JSON
+### 📋 Estrutura do Cliente
 ```json
 {
   "id": 1,
@@ -98,92 +74,167 @@ docker-compose up api client
 
 ---
 
+## 📚 API Endpoints
+
+**Base URL:** `http://localhost:8080`
+
+### Endpoints Básicos
+| Método | Endpoint | Descrição | Status |
+|--------|----------|-----------|--------|
+| GET | `/` | Informações da API | 200 |
+| GET | `/clientes` | Listar todos | 200 |
+| GET | `/clientes/:id` | Buscar por ID | 200/404 |
+| POST | `/clientes` | Criar novo | 201/400/409 |
+| PUT | `/clientes/:id` | Atualizar | 200/400/404 |
+| DELETE | `/clientes/:id` | Remover | 204/404 |
+
+### Query Parameters (Bônus)
+| Parâmetro | Exemplo | Descrição |
+|-----------|---------|-----------|
+| `cidade` | `?cidade=São Paulo` | Filtrar por cidade |
+| `nome` | `?nome=João` | Busca parcial no nome |
+| Combinado | `?cidade=SP&nome=Silva` | Filtros simultâneos |
+
+---
+
 ## 🛠️ Stack Tecnológica
 
 **Backend:** Node.js 18 + Express.js 5 + CORS  
-**Frontend:** React 19 + Vite 7 + Material-UI 7 + Axios  
+**Frontend:** React 19 + Vite 7 + Material-UI 6 + Axios  
 **DevOps:** Docker + Docker Compose
 
-## 🎁 Bônus Implementados
+---
 
-### ✅ **Bônus 1: Validação de Email Único**
-- **Funcionalidade**: Impede cadastro de emails duplicados
-- **Status HTTP**: 409 Conflict 
-- **Exemplo**: `POST /clientes` com email existente retorna erro
+## 💎 Recursos Bônus Implementados
 
-### ✅ **Bônus 2: Filtro por Cidade**
-- **Funcionalidade**: Filtra clientes por cidade específica
-- **Uso**: `GET /clientes?cidade=Fortaleza`
-- **Case-insensitive**: `cidade=fortaleza` funciona igual
-
-### ✅ **Bônus 3: Busca por Nome Parcial**
-- **Funcionalidade**: Busca clientes por parte do nome
-- **Uso**: `GET /clientes?nome=ana` → retorna "Ana Souza"
-- **Case-insensitive**: Funciona com maiúscula/minúscula
-
-### 🔄 **Filtros Combinados**
-- **Exemplo**: `GET /clientes?cidade=São Paulo&nome=João`
-- **Resultado**: Clientes de São Paulo com "João" no nome
-
-Consulte `TESTE_MANUAL.md` para instruções detalhadas de teste.
-
-**Teste Rápido:**
+### ✅ **1. Validação de Email Único (409 Conflict)**
 ```bash
-# API
-curl http://localhost:8080/clientes
+# Tenta criar cliente com email duplicado
+curl -X POST http://localhost:8080/clientes \
+  -H "Content-Type: application/json" \
+  -d '{"nome": "Teste", "email": "joao@exemplo.com", ...}'
+# Retorna: {"message": "E-mail já cadastrado."} - Status 409
+```
 
-# Frontend  
-# Abrir: http://localhost:5173
+### ✅ **2. Filtro por Cidade**
+```bash
+# Case-insensitive
+curl "http://localhost:8080/clientes?cidade=são paulo"
+```
+
+### ✅ **3. Busca por Nome Parcial**
+```bash
+# Encontra qualquer cliente com "Maria" no nome
+curl "http://localhost:8080/clientes?nome=Maria"
+```
+
+### ✅ **4. Filtros Combinados**
+```bash
+# Clientes de SP com "Silva" no nome
+curl "http://localhost:8080/clientes?cidade=São Paulo&nome=Silva"
 ```
 
 ---
 
-## 🔮 Sugestões para Evolução Futura
+## 🧪 Teste Rápido (30 segundos)
+
+```bash
+# 1. API Status
+curl http://localhost:8080/
+
+# 2. Listar clientes iniciais
+curl http://localhost:8080/clientes
+
+# 3. Abrir frontend
+# http://localhost:5173
+```
+
+**Para testes completos:** Consulte `TESTE_MANUAL.md`
+
+---
+
+## 🚨 Solução de Problemas Comuns
+
+### API não inicia
+```bash
+cd app/api && npm install && npm start
+```
+
+### Frontend não carrega clientes
+```bash
+# Verificar se API está rodando
+curl http://localhost:8080/clientes
+```
+
+### Erro CORS
+- Verificar se API está na porta 8080
+- URL no frontend: `app/client/src/services/api.js`
+
+### Porta ocupada
+```bash
+# Windows
+netstat -ano | findstr :8080
+taskkill /PID <numero> /F
+```
+
+---
+
+## 🎯 Arquitetura dos Componentes
+
+```
+App.jsx (Estado Global)
+  ↓
+MainLayout (Container Principal)
+  ├─→ Header (Navegação)
+  ├─→ ClientList (Lista + Grid responsivo)
+  ├─→ ClientForm (Modal + Validação)
+  └─→ Snackbar (Notificações)
+```
+
+### Responsividade
+- **Desktop**: Layout em grid 2 colunas
+- **Mobile**: Empilhamento vertical
+- **Tablet**: Adaptação automática
+
+---
+
+## 🔮 Próximas Evoluções
 
 <details>
-<summary>💡 Clique para ver melhorias avançadas</summary>
-
-### Performance & Produção
-- **Nginx** como proxy reverso + cache
-- **Redis** para cache de dados
-- **PM2** para gerenciamento de processos
-- **Load balancer** para múltiplas instâncias
+<summary>💡 Roadmap de melhorias</summary>
 
 ### Funcionalidades
-- **Edição de clientes** inline
-- **Busca e filtros** avançados
-- **Paginação** para grandes volumes
-- **Validações** de formulário completas
-- **Loading states** e feedback visual
+- [ ] Edição inline de clientes
+- [ ] Paginação para grandes volumes
+- [ ] Busca em tempo real
+- [ ] Exportar/Importar dados
+- [ ] Dashboard com estatísticas
 
-### Segurança & Dados
-- **Autenticação** JWT + middleware
-- **Banco de dados** PostgreSQL/MongoDB
-- **Migrations** para estrutura DB
-- **Backup** automático
+### Técnico
+- [ ] Banco de dados (PostgreSQL)
+- [ ] Autenticação JWT
+- [ ] Testes automatizados
+- [ ] CI/CD Pipeline
+- [ ] Monitoramento de logs
 
-### DevOps & Qualidade
-- **CI/CD** GitHub Actions
-- **Testes automatizados** Jest + Testing Library
-- **ESLint + Prettier** configurados
-- **Monitoramento** logs + métricas
-- **Deploy automatizado** AWS/GCP/Azure
-
-### Arquitetura
-- **Microserviços** separação por domínio
-- **Message Queue** para processamento assíncrono
-- **API Gateway** centralização de requests
-- **Containerização** Kubernetes
+### UX/UI
+- [ ] Tema escuro/claro
+- [ ] Animações de transição
+- [ ] Loading skeletons
+- [ ] Offline support
+- [ ] PWA features
 
 </details>
 
 ---
 
-## 📝 Licença
+## 📄 Licença
 
 ISC © FarmUp Challenge
 
 ---
 
-**Status:** ✅ Sistema funcional - Pronto para avaliação
+**Status:** ✅ Sistema completo - Pronto para produção
+
+**Desenvolvido com ❤️ para o FarmUp Challenge**
 
