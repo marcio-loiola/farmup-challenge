@@ -76,7 +76,8 @@ docker-compose up --build
 
 ## 📚 API Endpoints
 
-**Base URL:** `http://localhost:8080`
+**Base URL:** `http://localhost:8080`  
+**📚 Documentação Swagger:** `http://localhost:8080/api-docs`
 
 ### Endpoints Básicos
 | Método | Endpoint | Descrição | Status |
@@ -99,9 +100,10 @@ docker-compose up --build
 
 ## 🛠️ Stack Tecnológica
 
-**Backend:** Node.js 18 + Express.js 5 + CORS  
+**Backend:** Node.js 18 + Express.js 5 + CORS + Swagger  
 **Frontend:** React 19 + Vite 7 + Material-UI 6 + Axios  
-**DevOps:** Docker + Docker Compose
+**DevOps:** Docker + Docker Compose  
+**Docs:** Swagger/OpenAPI 3.0
 
 ---
 
@@ -147,6 +149,9 @@ curl http://localhost:8080/clientes
 
 # 3. Abrir frontend
 # http://localhost:5173
+
+# 4. 📚 Documentação Swagger (NOVO!)
+# http://localhost:8080/api-docs
 ```
 
 **Para testes completos:** Consulte `TESTE_MANUAL.md`

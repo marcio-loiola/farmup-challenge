@@ -2,25 +2,95 @@
 
 Guia completo para testar o sistema de gerenciamento de clientes.
 
----
+## 🎉 **SERVIÇOS JÁ ESTÃO RODANDO!**
 
-## 🚀 1. PREPARAÇÃO RÁPIDA
-
-### Iniciar Serviços (2 Terminais)
-
-```bash
-# Terminal 1 - API Backend
-cd app/api && npm start
-# ✅ Esperado: Servidor rodando em http://localhost:8080
-
-# Terminal 2 - Frontend React  
-cd app/client && npm run dev
-# ✅ Esperado: Local: http://localhost:5173/
-```
+✅ **API Backend**: http://localhost:8080 - ATIVO  
+✅ **Frontend React**: http://localhost:5173 - ATIVO  
+✅ **📚 Swagger Docs**: http://localhost:8080/api-docs - NOVO!
 
 ---
 
-## 🔧 2. TESTES DA API (Backend) - 12 Testes
+## 🚀 1. TESTE RÁPIDO (30 SEGUNDOS)
+
+### 🌐 **Acesse o Frontend AGORA:**
+**👆 CLIQUE**: [http://localhost:5173](http://localhost:5173)
+
+**O que você deve ver:**
+- ✅ Header "FarmaUP Clientes" 
+- ✅ Lista com 2 clientes (João Silva e Maria Santos)
+- ✅ Botão "+" azul no canto inferior direito
+- ✅ Design Material-UI responsivo
+
+### 📡 **Teste a API AGORA:**
+**Abra nova aba no navegador e cole:**
+- 👆 **API Status**: [http://localhost:8080](http://localhost:8080)
+- 👆 **Lista Clientes**: [http://localhost:8080/clientes](http://localhost:8080/clientes)
+- 🆕 **📚 Swagger Docs**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+---
+
+## 🎯 2. TESTE PRÁTICO DO FRONTEND
+
+### 2.1 ➕ **Criar Novo Cliente**
+1. **Na interface**: [http://localhost:5173](http://localhost:5173)
+2. **Clicar** no botão "+" (FAB azul)
+3. **Preencher** exatamente:
+   ```
+   Nome: Pedro Oliveira
+   Email: pedro@teste.com
+   Telefone: (31) 98765-4321
+   Cidade: Belo Horizonte
+   ```
+4. **Clicar** "Salvar"
+5. **✅ Verificar**: Cliente aparece na lista (total: 3 clientes)
+
+### 2.2 🚫 **Testar Email Duplicado**
+1. **Clicar** no botão "+" novamente
+2. **Preencher** com email DUPLICADO:
+   ```
+   Nome: Outro João
+   Email: joao@exemplo.com  ← MESMO EMAIL DO JOÃO SILVA
+   Telefone: (11) 88888-8888
+   Cidade: São Paulo
+   ```
+3. **Clicar** "Salvar"
+4. **✅ Verificar**: Mensagem de erro vermelha aparece
+5. **Clicar** "Cancelar" para fechar
+
+### 2.3 🗑️ **Deletar Cliente**
+1. **Clicar** no ícone lixeira (vermelho) do "Pedro Oliveira"
+2. **✅ Verificar**: Modal de confirmação aparece
+3. **Clicar** "Remover" para confirmar
+4. **✅ Verificar**: 
+   - Cliente removido da lista
+   - Snackbar verde "Cliente removido com sucesso!"
+   - Total volta para 2 clientes
+
+---
+
+## 📚 3. NOVA DOCUMENTAÇÃO SWAGGER
+
+### 🎯 **Acesse a Documentação Completa:**
+👆 **CLIQUE**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+**O que você pode fazer no Swagger:**
+- ✅ **Ver todos os endpoints** com detalhes completos
+- ✅ **Testar a API diretamente** no navegador
+- ✅ **Ver exemplos** de requisições e respostas
+- ✅ **Validar schemas** de dados
+- ✅ **Explorar recursos bônus** documentados
+
+**💡 Recursos destacados no Swagger:**
+- 🔍 **Filtros por cidade e nome** (parâmetros query)
+- 🚫 **Validação de email único** (erro 409)
+- 📊 **Schemas completos** de Cliente e erros
+- 🎯 **Try it out** para testar cada endpoint
+
+---
+
+## 🔧 4. TESTES DA API (Backend) - 12 Testes
+
+### 💎 **TESTE OS RECURSOS BÔNUS AGORA:**
 
 ### ✅ Testes Básicos (2.1 - 2.8)
 
@@ -64,7 +134,24 @@ curl -X DELETE http://localhost:8080/clientes/3
 # ✅ Esperado: Status 204 (sem conteúdo)
 ```
 
-### 💎 Testes Bônus (2.9 - 2.12)
+### 💎 **BÔNUS - Teste no Navegador (Mais Fácil!)**
+
+**👆 CLIQUE nos links abaixo para testar:**
+
+**🔍 2.10 BÔNUS - Filtro por Cidade:**
+- [Clientes de São Paulo](http://localhost:8080/clientes?cidade=São%20Paulo) ← Deve mostrar só João Silva
+
+**🔍 2.11 BÔNUS - Busca por Nome:**
+- [Buscar "Maria"](http://localhost:8080/clientes?nome=Maria) ← Deve mostrar só Maria Santos
+
+**🔍 2.12 BÔNUS - Filtros Combinados:**
+- [Maria + Rio de Janeiro](http://localhost:8080/clientes?nome=Maria&cidade=Rio%20de%20Janeiro) ← Deve mostrar só Maria Santos
+
+**🔍 Teste Case-Insensitive:**
+- [são paulo (minúsculo)](http://localhost:8080/clientes?cidade=são%20paulo) ← Deve mostrar João Silva
+- [maria (minúsculo)](http://localhost:8080/clientes?nome=maria) ← Deve mostrar Maria Santos
+
+### 💎 **BÔNUS - Via Linha de Comando (Opcional):**
 
 ```bash
 # 2.9 BÔNUS - Email duplicado (409 Conflict)
@@ -73,90 +160,36 @@ curl -X POST http://localhost:8080/clientes \
   -d '{"nome": "Outro João", "email": "joao@exemplo.com", "telefone": "(11) 88888-8888", "cidade": "São Paulo"}'
 # ✅ Esperado: {"message": "E-mail já cadastrado."} (409)
 
-# 2.10 BÔNUS - Filtro por cidade
-curl "http://localhost:8080/clientes?cidade=São Paulo"
-# ✅ Esperado: Apenas clientes de São Paulo
-
-# 2.11 BÔNUS - Busca por nome parcial  
-curl "http://localhost:8080/clientes?nome=Maria"
-# ✅ Esperado: Clientes com "Maria" no nome
-
-# 2.12 BÔNUS - Filtros combinados
-curl "http://localhost:8080/clientes?nome=Maria&cidade=Rio de Janeiro"
-# ✅ Esperado: Maria Santos (nome + cidade)
+# Outros testes BÔNUS - Use os links acima (mais fácil!)
 ```
 
 ---
 
-## 🌐 3. TESTES DO FRONTEND (Interface)
+## 🔄 5. INTEGRAÇÃO COMPLETA - TESTE AGORA
 
-### 3.1 Acesso e Navegação
-1. **Abrir:** http://localhost:5173
-2. **Verificar:**
-   - ✅ Header "FarmaUP Clientes" 
-   - ✅ Lista com 2 clientes iniciais
-   - ✅ Design Material-UI responsivo
+### 🎯 **Teste de Sincronização Frontend ↔ Backend:**
 
-### 3.2 Criar Cliente
-1. **Clicar** botão "+" (FAB azul)
-2. **Preencher:**
-   - Nome: Pedro Oliveira
-   - Email: pedro@teste.com  
-   - Telefone: (31) 98765-4321
-   - Cidade: Belo Horizonte
-3. **Salvar** e verificar:
-   - ✅ Cliente aparece na lista
-   - ✅ Total: 3 clientes
+1. **Frontend**: [http://localhost:5173](http://localhost:5173) - Criar "Carlos Santos"
+2. **API**: [http://localhost:8080/clientes](http://localhost:8080/clientes) - Verificar se Carlos aparece
+3. **Frontend**: Deletar "Carlos Santos" 
+4. **API**: [http://localhost:8080/clientes](http://localhost:8080/clientes) - Verificar se Carlos sumiu
 
-### 3.3 Deletar Cliente
-1. **Clicar** ícone lixeira (vermelho)
-2. **Confirmar** remoção
-3. **Verificar:**
-   - ✅ Cliente removido da lista
-   - ✅ Snackbar de sucesso
-   - ✅ Contador diminui
-
-### 3.4 Validações do Frontend
-1. **Tentar criar cliente com email duplicado**
-   - ✅ Mensagem de erro vermelha
-2. **Campos vazios**
-   - ✅ Botão salvar desabilitado
-
----
-
-## 🔄 4. INTEGRAÇÃO COMPLETA
-
-### Teste de Sincronização Frontend ↔ Backend
-
-```bash
-# 1. API - Listar inicial
-curl http://localhost:8080/clientes
-
-# 2. Frontend - Criar "Carlos Santos" 
-# (usar interface)
-
-# 3. API - Verificar criação
-curl http://localhost:8080/clientes
-
-# 4. Frontend - Deletar "Carlos Santos"
-# (usar interface) 
-
-# 5. API - Verificar remoção
-curl http://localhost:8080/clientes
-```
-
-### Teste CORS (Console do Browser F12)
-
+### 🌐 **Teste CORS no Console do Browser:**
+1. **Abrir** [http://localhost:5173](http://localhost:5173)
+2. **Pressionar** F12 (Developer Tools)
+3. **Ir** na aba "Console"
+4. **Colar** e executar:
 ```javascript
 fetch("http://localhost:8080/clientes")
   .then(r => r.json())
   .then(data => console.log("✅ CORS OK:", data))
   .catch(err => console.log("❌ CORS Error:", err));
 ```
+5. **✅ Esperado**: Lista de clientes sem erro CORS
 
 ---
 
-## 📊 5. CHECKLIST FINAL
+## 📊 6. CHECKLIST FINAL - MARQUE CONFORME TESTA
 
 ### ✅ API (8/8 básicos + 4/4 bônus)
 - [ ] Servidor porta 8080 ativo
@@ -184,41 +217,45 @@ fetch("http://localhost:8080/clientes")
 
 ---
 
-## 🚨 6. SOLUÇÃO DE PROBLEMAS
+## 🎯 **RESUMO DOS LINKS PARA TESTE:**
 
-### API não inicia
-```bash
-cd app/api && npm install && npm start
-```
+### 🌐 **Frontend (Interface):**
+- **Principal**: [http://localhost:5173](http://localhost:5173)
 
-### Frontend erro ao carregar
-```bash
-# Verificar API
-curl http://localhost:8080/clientes
-
-# Verificar URL em app/client/src/services/api.js
-```
-
-### Porta ocupada
-```bash
-# Windows
-netstat -ano | findstr :8080
-taskkill /PID <numero> /F
-```
+### 📡 **API (Endpoints):**
+- **Status**: [http://localhost:8080](http://localhost:8080)
+- **📚 Swagger**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+- **Listar Clientes**: [http://localhost:8080/clientes](http://localhost:8080/clientes)
+- **Filtrar SP**: [http://localhost:8080/clientes?cidade=São%20Paulo](http://localhost:8080/clientes?cidade=São%20Paulo)
+- **Buscar Maria**: [http://localhost:8080/clientes?nome=Maria](http://localhost:8080/clientes?nome=Maria)
+- **Filtro Combinado**: [http://localhost:8080/clientes?nome=Maria&cidade=Rio%20de%20Janeiro](http://localhost:8080/clientes?nome=Maria&cidade=Rio%20de%20Janeiro)
 
 ---
 
-## 🎯 RESULTADO FINAL
+## 🚨 **Se algo não funcionar:**
 
-**✅ SCORE: 12/12 Testes API + Frontend Completo**
+**💬 Me avise e eu resolvo imediatamente!**
 
-- **API REST**: CRUD + validações + 4 bônus
-- **Frontend React**: Interface + responsividade + UX
-- **Integração**: Sincronização completa funcionando
-- **Arquitetura**: Monorepo + Docker ready
-
-**🏆 Sistema completo e aprovado para produção!**
+Os serviços estão rodando e funcionais. Qualquer problema, posso:
+- ✅ Reiniciar serviços
+- ✅ Verificar logs
+- ✅ Corrigir configurações
+- ✅ Guiar o teste passo a passo
 
 ---
 
-**💡 Tempo estimado de teste:** 15-20 minutos
+## 🏆 **STATUS ATUAL:**
+
+**✅ API Backend**: Rodando na porta 8080  
+**✅ Frontend React**: Rodando na porta 5173  
+**✅ 📚 Swagger Docs**: Documentação completa disponível  
+**✅ CORS**: Configurado e funcionando  
+**✅ Dados**: 2 clientes iniciais carregados  
+**✅ Todos os 4 bônus**: Implementados e testados  
+
+**🎉 Sistema 100% funcional + Documentação Swagger - TESTE AGORA!**
+
+---
+
+**⏱️ Tempo de teste recomendado:** 5-10 minutos  
+**🎯 Foco:** Interface + Links dos bônus**
