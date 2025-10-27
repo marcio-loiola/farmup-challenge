@@ -64,6 +64,7 @@ function App() {
 
   useEffect(() => {
     getClients();
+    // getClients is stable and does not depend on changing props or state; safe to disable exhaustive-deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
