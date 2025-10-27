@@ -79,6 +79,7 @@ Guia completo para testar o sistema de gerenciamento de clientes.
 - ✅ **Ver exemplos** de requisições e respostas
 - ✅ **Validar schemas** de dados
 - ✅ **Explorar recursos bônus** documentados
+- 📱 **Entrar em contato** via WhatsApp: (88) 99630-0791
 
 **💡 Recursos destacados no Swagger:**
 - 🔍 **Filtros por cidade e nome** (parâmetros query)
