@@ -6,7 +6,7 @@ Guia completo para testar o sistema de gerenciamento de clientes.
 
 ✅ **API Backend**: http://localhost:8080 - ATIVO  
 ✅ **Frontend React**: http://localhost:5173 - ATIVO  
-✅ **📚 Swagger Docs**: http://localhost:8080/api-docs - NOVO!
+✅ **📚 Swagger Docs**: http://localhost:8080/docs - NOVO!
 
 ---
 
@@ -25,7 +25,7 @@ Guia completo para testar o sistema de gerenciamento de clientes.
 **Abra nova aba no navegador e cole:**
 - 👆 **API Status**: [http://localhost:8080](http://localhost:8080)
 - 👆 **Lista Clientes**: [http://localhost:8080/clientes](http://localhost:8080/clientes)
-- 🆕 **📚 Swagger Docs**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+- 🆕 **📚 Swagger Docs**: [http://localhost:8080/docs](http://localhost:8080/docs)
 
 ---
 
@@ -71,7 +71,7 @@ Guia completo para testar o sistema de gerenciamento de clientes.
 ## 📚 3. NOVA DOCUMENTAÇÃO SWAGGER
 
 ### 🎯 **Acesse a Documentação Completa:**
-👆 **CLIQUE**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+👆 **CLIQUE**: [http://localhost:8080/docs](http://localhost:8080/docs)
 
 **O que você pode fazer no Swagger:**
 - ✅ **Ver todos os endpoints** com detalhes completos
@@ -224,7 +224,7 @@ fetch("http://localhost:8080/clientes")
 
 ### 📡 **API (Endpoints):**
 - **Status**: [http://localhost:8080](http://localhost:8080)
-- **📚 Swagger**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+- **📚 Swagger**: [http://localhost:8080/docs](http://localhost:8080/docs)
 - **Listar Clientes**: [http://localhost:8080/clientes](http://localhost:8080/clientes)
 - **Filtrar SP**: [http://localhost:8080/clientes?cidade=São%20Paulo](http://localhost:8080/clientes?cidade=São%20Paulo)
 - **Buscar Maria**: [http://localhost:8080/clientes?nome=Maria](http://localhost:8080/clientes?nome=Maria)

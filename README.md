@@ -77,7 +77,7 @@ docker-compose up --build
 ## 📚 API Endpoints
 
 **Base URL:** `http://localhost:8080`  
-**📚 Documentação Swagger:** `http://localhost:8080/api-docs`
+**📚 Documentação Swagger:** `http://localhost:8080/docs`
 
 ### Endpoints Básicos
 | Método | Endpoint | Descrição | Status |
@@ -151,7 +151,7 @@ curl http://localhost:8080/clientes
 # http://localhost:5173
 
 # 4. 📚 Documentação Swagger (NOVO!)
-# http://localhost:8080/api-docs
+# http://localhost:8080/docs
 ```
 
 **Para testes completos:** Consulte `TESTE_MANUAL.md`

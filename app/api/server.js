@@ -139,7 +139,7 @@ app.use(
 app.use(express.json());
 
 // Documentação Swagger
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, {
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs, {
   customCss: '.swagger-ui .topbar { display: none }',
   customSiteTitle: "API de Clientes - FarmUp Challenge"
 }));
@@ -169,7 +169,7 @@ app.get("/", (req, res) => {
       atualizar: "PUT /clientes/:id",
       remover: "DELETE /clientes/:id",
     },
-    documentacao: `GET /api-docs - Documentação Swagger`
+    documentacao: `GET /docs - Documentação Swagger`
   });
 });
 
@@ -179,6 +179,6 @@ app.use("/clientes", clientesRoutes);
 // Inicia o servidor
 app.listen(PORT, () => {
   console.log(`Servidor rodando em http://localhost:${PORT}`);
-  console.log(`Documentação Swagger: http://localhost:${PORT}/api-docs`);
+  console.log(`Documentação Swagger: http://localhost:${PORT}/docs`);
   console.log("Use Ctrl+C para parar o servidor");
 });
