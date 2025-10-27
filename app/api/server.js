@@ -20,8 +20,7 @@ const swaggerOptions = {
       description: "API REST para gerenciamento de clientes com recursos bônus",
       contact: {
         name: "FarmUp Team",
-        url: "https://wa.me/5588996300791?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20a%20API%20de%20Clientes%20-%20FarmUp%20Challenge",
-        email: "team@farmup.com"
+        url: "https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!"
       }
     },
     servers: [

@@ -1,8 +1,20 @@
-# Dockerfile for Node.js API
-FROM node:18-alpine
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install --only=production
+# Use uma imagem base leve do Node.js
+FROM node:20-alpine
+
+# Defina o diretório de trabalho
+WORKDIR /app
+
+# Copie o package.json primeiro para otimizar o cache de camadas
+COPY package.json ./
+
+# Instale as dependências
+RUN npm install
+
+# Copie o resto do código-fonte
 COPY . .
-EXPOSE 3000
-CMD [ "node", "server.js" ]
+
+# Exponha a porta 8080
+EXPOSE 8080
+
+# Defina o comando de inicialização
+CMD ["node", "server.js"]

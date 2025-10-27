@@ -155,7 +155,7 @@ curl http://localhost:8080/clientes
 ```
 
 **Para testes completos:** Consulte `TESTE_MANUAL.md`  
-**Dúvidas?** Entre em contato via WhatsApp: [(88) 99630-0791](https://wa.me/5588996300791?text=Olá!%20Tenho%20uma%20dúvida%20sobre%20a%20API%20de%20Clientes%20-%20FarmUp%20Challenge)
+**Dúvidas?** Entre em contato via WhatsApp: [(88) 99630-0791](https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!)
 
 ---
 
