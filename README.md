@@ -47,6 +47,9 @@ cd app/client && npm run dev
 ```bash
 # Build e executar
 docker-compose up --build
+
+# Desenvolvimento (com hot reload)
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
 ---
@@ -155,7 +158,8 @@ curl http://localhost:8080/clientes
 ```
 
 **Para testes completos:** Consulte `TESTE_MANUAL.md`  
-**Dúvidas?** Entre em contato via WhatsApp: [(88) 99630-0791](https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!)
+**Dúvidas?** Entre em contato via WhatsApp: [(88) 99630-0791](https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!)  
+**Demonstração:** Veja os vídeos oficiais acima 📹
 
 ---
 

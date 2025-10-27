@@ -1,49 +1,18 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # API Backend
   api:
-    build:
-      context: ./app/api
-      dockerfile: Dockerfile
+    build: ./app/api
     ports:
       - "8080:8080"
     environment:
       - NODE_ENV=production
-    networks:
-      - farmup-network
 
-  # Client Frontend  
+  # Client Frontend
   client:
-    build:
-      context: ./app/client
-      dockerfile: Dockerfile
+    build: ./app/client
     ports:
       - "3000:80"
     depends_on:
       - api
-    networks:
-      - farmup-network
-
-  # Desenvolvimento local (opcional)
-  # Para usar: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
-  api-dev:
-    build:
-      context: ./app/api
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ./app/api:/app
-      - /app/node_modules
-    command: npm run dev
-    networks:
-      - farmup-network
-    profiles:
-      - dev
-
-networks:
-  farmup-network:
-    driver: bridge

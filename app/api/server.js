@@ -20,14 +20,14 @@ const swaggerOptions = {
       description: "API REST para gerenciamento de clientes com recursos bônus",
       contact: {
         name: "FarmUp Team",
-        url: "https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!"
-      }
+        url: "https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!",
+      },
     },
     servers: [
       {
         url: `http://localhost:${PORT}`,
-        description: "Servidor de desenvolvimento"
-      }
+        description: "Servidor de desenvolvimento",
+      },
     ],
     components: {
       schemas: {
@@ -38,30 +38,30 @@ const swaggerOptions = {
             id: {
               type: "integer",
               description: "ID único do cliente (gerado automaticamente)",
-              example: 1
+              example: 1,
             },
             nome: {
               type: "string",
               description: "Nome completo do cliente",
-              example: "João Silva"
+              example: "João Silva",
             },
             email: {
               type: "string",
               format: "email",
               description: "Endereço de email único",
-              example: "joao@exemplo.com"
+              example: "joao@exemplo.com",
             },
             telefone: {
               type: "string",
               description: "Número de telefone com formatação",
-              example: "(11) 98765-4321"
+              example: "(11) 98765-4321",
             },
             cidade: {
               type: "string",
               description: "Cidade de residência",
-              example: "São Paulo"
-            }
-          }
+              example: "São Paulo",
+            },
+          },
         },
         ClienteInput: {
           type: "object",
@@ -70,25 +70,25 @@ const swaggerOptions = {
             nome: {
               type: "string",
               description: "Nome completo do cliente",
-              example: "Ana Costa"
+              example: "Ana Costa",
             },
             email: {
               type: "string",
               format: "email",
               description: "Endereço de email único",
-              example: "ana@teste.com"
+              example: "ana@teste.com",
             },
             telefone: {
               type: "string",
               description: "Número de telefone com formatação",
-              example: "(11) 99999-8888"
+              example: "(11) 99999-8888",
             },
             cidade: {
               type: "string",
               description: "Cidade de residência",
-              example: "São Paulo"
-            }
-          }
+              example: "São Paulo",
+            },
+          },
         },
         Error: {
           type: "object",
@@ -96,16 +96,16 @@ const swaggerOptions = {
             erro: {
               type: "string",
               description: "Mensagem de erro",
-              example: "Cliente não encontrado"
-            }
-          }
+              example: "Cliente não encontrado",
+            },
+          },
         },
         ApiInfo: {
           type: "object",
           properties: {
             mensagem: {
               type: "string",
-              example: "API de Clientes - FarmUp Challenge"
+              example: "API de Clientes - FarmUp Challenge",
             },
             endpoints: {
               type: "object",
@@ -114,15 +114,15 @@ const swaggerOptions = {
                 buscar: { type: "string", example: "GET /clientes/:id" },
                 criar: { type: "string", example: "POST /clientes" },
                 atualizar: { type: "string", example: "PUT /clientes/:id" },
-                remover: { type: "string", example: "DELETE /clientes/:id" }
-              }
-            }
-          }
-        }
-      }
-    }
+                remover: { type: "string", example: "DELETE /clientes/:id" },
+              },
+            },
+          },
+        },
+      },
+    },
   },
-  apis: ["./routes/*.js", "./server.js"]
+  apis: ["./routes/*.js", "./server.js"],
 };
 
 const specs = swaggerJsdoc(swaggerOptions);
@@ -130,8 +130,14 @@ const specs = swaggerJsdoc(swaggerOptions);
 // Middleware para CORS (permitir requisições do cliente React)
 app.use(
   cors({
-    origin: "http://localhost:8080",
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:5173",
+      "http://localhost:8080",
+    ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
 
@@ -139,10 +145,14 @@ app.use(
 app.use(express.json());
 
 // Documentação Swagger
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs, {
-  customCss: '.swagger-ui .topbar { display: none }',
-  customSiteTitle: "API de Clientes - FarmUp Challenge"
-}));
+app.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(specs, {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "API de Clientes - FarmUp Challenge",
+  })
+);
 
 /**
  * @swagger
@@ -169,7 +179,7 @@ app.get("/", (req, res) => {
       atualizar: "PUT /clientes/:id",
       remover: "DELETE /clientes/:id",
     },
-    documentacao: `GET /docs - Documentação Swagger`
+    documentacao: `GET /docs - Documentação Swagger`,
   });
 });
 
