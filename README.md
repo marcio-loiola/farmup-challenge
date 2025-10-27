@@ -1,99 +1,82 @@
-# API REST de Clientes - FarmUp Challenge
+# 🚀 FarmUp Challenge - Sistema de Gerenciamento de Clientes
 
-API REST simples para gerenciar cadastro de clientes, desenvolvida com Node.js e Express.
+Sistema fullstack para gerenciar cadastro de clientes desenvolvido com Node.js, Express, React e Material-UI.
 
-## 📋 Descrição
+## 🎥 Demonstração Oficial
 
-Este projeto é uma API REST que permite realizar operações CRUD (Create, Read, Update, Delete) em um cadastro de clientes. Foi desenvolvida seguindo boas práticas de código limpo e arquitetura em 3 camadas, ideal para aprendizado de iniciantes em desenvolvimento backend.
+### 📹 **Vídeos das Funcionalidades:**
 
-### Características
+**🎯 Demonstração Completa do Sistema:**
+- 👆 [**Vídeo 1 - Funcionalidades Principais**](https://www.loom.com/share/ac79cb801f3641aabe4fc00c1f9772ca)
 
-- **Arquitetura em 3 camadas**: Separação clara entre rotas, controladores e dados
-- **Código limpo**: Funções pequenas, nomes descritivos, comentários em português
-- **Simplicidade**: Sem padrões complexos, fácil de entender e modificar
-- **Armazenamento em memória**: Dados mantidos em memória (reinicia ao parar o servidor)
+**🔧 Demonstração Técnica e Recursos Avançados:**
+- 👆 [**Vídeo 2 - Recursos Bônus e API**](https://www.loom.com/share/480c03d509db4089b888c0a46060f549)
 
-### Campos do Cliente
+*Assista aos vídeos para ver o sistema funcionando na prática!*
 
-Cada cliente possui os seguintes campos:
-- `id`: Identificador único (gerado automaticamente)
-- `nome`: Nome completo do cliente
-- `email`: Endereço de e-mail
-- `telefone`: Número de telefone
-- `cidade`: Cidade onde o cliente reside
+---
 
-## 🚀 Instalação
+## 🏗️ Arquitetura
 
-### Pré-requisitos
-
-- Node.js (versão 14 ou superior)
-- npm (gerenciador de pacotes do Node.js)
-
-### Passos para instalação
-
-1. Clone o repositório:
-```bash
-git clone https://github.com/marcio-loiola/farmup-challenge.git
-cd farmup-challenge
+```
+farmup-challenge/
+├── app/
+│   ├── api/                    # Backend - API REST Node.js
+│   │   ├── server.js          # Servidor Express (porta 8080)
+│   │   ├── controllers/       # Lógica de negócio
+│   │   ├── data/             # Dados em memória
+│   │   └── routes/           # Endpoints REST
+│   └── client/               # Frontend - React App
+│       ├── src/              # Código fonte React
+│       │   ├── components/   # Componentes UI
+│       │   └── services/     # Integração API
+│       └── public/           # Assets estáticos
+├── package.json              # Workspace monorepo
+└── Dockerfile               # Container multi-stage
 ```
 
-2. Instale as dependências:
+---
+
+## ⚡ Quick Start
+
+### 🔧 Desenvolvimento Local
+
 ```bash
+# 1. Instalar dependências na raiz
 npm install
+
+# 2. Executar API (Terminal 1)
+cd app/api && npm start
+# API: http://localhost:8080
+
+# 3. Executar Cliente (Terminal 2)
+cd app/client && npm run dev  
+# Client: http://localhost:5173
 ```
 
-3. Inicie o servidor:
+### 🐳 Docker (Opcional)
+
 ```bash
-npm start
+# Build e executar
+docker-compose up --build
+
+# Desenvolvimento (com hot reload)
+docker-compose -f docker-compose.dev.yml up --build
 ```
 
-O servidor estará rodando em `http://localhost:3000`
+---
 
-## 📚 Endpoints da API
+## 🎯 Funcionalidades
 
-### 1. Listar todos os clientes
+### ✅ Implementadas
+- 📋 **Listar Clientes** - Interface com Material-UI responsiva
+- ➕ **Criar Cliente** - Formulário modal com validação
+- 🗑️ **Deletar Cliente** - Remoção com confirmação
+- 🔍 **Filtros Avançados** - Por cidade e nome (bônus)
+- 🌐 **API REST Completa** - CRUD + validações
+- 🔄 **Integração Completa** - Frontend/Backend sincronizados
 
-**GET** `/clientes`
-
-Retorna a lista de todos os clientes cadastrados.
-
-**Exemplo de requisição:**
-```bash
-curl http://localhost:3000/clientes
-```
-
-**Resposta (200 OK):**
-```json
-[
-  {
-    "id": 1,
-    "nome": "João Silva",
-    "email": "joao@exemplo.com",
-    "telefone": "(11) 98765-4321",
-    "cidade": "São Paulo"
-  },
-  {
-    "id": 2,
-    "nome": "Maria Santos",
-    "email": "maria@exemplo.com",
-    "telefone": "(21) 91234-5678",
-    "cidade": "Rio de Janeiro"
-  }
-]
-```
-
-### 2. Buscar cliente por ID
-
-**GET** `/clientes/:id`
-
-Retorna os dados de um cliente específico.
-
-**Exemplo de requisição:**
-```bash
-curl http://localhost:3000/clientes/1
-```
-
-**Resposta (200 OK):**
+### 📋 Estrutura do Cliente
 ```json
 {
   "id": 1,
@@ -104,200 +87,176 @@ curl http://localhost:3000/clientes/1
 }
 ```
 
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
-```
+---
 
-### 3. Criar novo cliente
+## 📚 API Endpoints
 
-**POST** `/clientes`
+**Base URL:** `http://localhost:8080`  
+**📚 Documentação Swagger:** `http://localhost:8080/docs`
 
-Cria um novo cliente no sistema.
+### Endpoints Básicos
+| Método | Endpoint | Descrição | Status |
+|--------|----------|-----------|--------|
+| GET | `/` | Informações da API | 200 |
+| GET | `/clientes` | Listar todos | 200 |
+| GET | `/clientes/:id` | Buscar por ID | 200/404 |
+| POST | `/clientes` | Criar novo | 201/400/409 |
+| PUT | `/clientes/:id` | Atualizar | 200/400/404 |
+| DELETE | `/clientes/:id` | Remover | 204/404 |
 
-**Exemplo de requisição:**
+### Query Parameters (Bônus)
+| Parâmetro | Exemplo | Descrição |
+|-----------|---------|-----------|
+| `cidade` | `?cidade=São Paulo` | Filtrar por cidade |
+| `nome` | `?nome=João` | Busca parcial no nome |
+| Combinado | `?cidade=SP&nome=Silva` | Filtros simultâneos |
+
+---
+
+## 🛠️ Stack Tecnológica
+
+**Backend:** Node.js 18 + Express.js 5 + CORS + Swagger  
+**Frontend:** React 19 + Vite 7 + Material-UI 6 + Axios  
+**DevOps:** Docker + Docker Compose  
+**Docs:** Swagger/OpenAPI 3.0
+
+---
+
+## 💎 Recursos Bônus Implementados
+
+### ✅ **1. Validação de Email Único (409 Conflict)**
 ```bash
-curl -X POST http://localhost:3000/clientes \
+# Tenta criar cliente com email duplicado
+curl -X POST http://localhost:8080/clientes \
   -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Pedro Oliveira",
-    "email": "pedro@exemplo.com",
-    "telefone": "(31) 99876-5432",
-    "cidade": "Belo Horizonte"
-  }'
+  -d '{"nome": "Teste", "email": "joao@exemplo.com", ...}'
+# Retorna: {"message": "E-mail já cadastrado."} - Status 409
 ```
 
-**Resposta (201 Created):**
-```json
-{
-  "id": 3,
-  "nome": "Pedro Oliveira",
-  "email": "pedro@exemplo.com",
-  "telefone": "(31) 99876-5432",
-  "cidade": "Belo Horizonte"
-}
-```
-
-**Resposta de erro (400 Bad Request):**
-```json
-{
-  "erro": "Todos os campos são obrigatórios"
-}
-```
-
-### 4. Atualizar cliente
-
-**PUT** `/clientes/:id`
-
-Atualiza os dados de um cliente existente.
-
-**Exemplo de requisição:**
+### ✅ **2. Filtro por Cidade**
 ```bash
-curl -X PUT http://localhost:3000/clientes/1 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "João Silva Santos",
-    "email": "joao.silva@exemplo.com",
-    "telefone": "(11) 98765-4321",
-    "cidade": "São Paulo"
-  }'
+# Case-insensitive
+curl "http://localhost:8080/clientes?cidade=são paulo"
 ```
 
-**Resposta (200 OK):**
-```json
-{
-  "id": 1,
-  "nome": "João Silva Santos",
-  "email": "joao.silva@exemplo.com",
-  "telefone": "(11) 98765-4321",
-  "cidade": "São Paulo"
-}
-```
-
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
-```
-
-### 5. Remover cliente
-
-**DELETE** `/clientes/:id`
-
-Remove um cliente do sistema.
-
-**Exemplo de requisição:**
+### ✅ **3. Busca por Nome Parcial**
 ```bash
-curl -X DELETE http://localhost:3000/clientes/1
+# Encontra qualquer cliente com "Maria" no nome
+curl "http://localhost:8080/clientes?nome=Maria"
 ```
 
-**Resposta (204 No Content):**
-```
-(sem conteúdo)
-```
-
-**Resposta de erro (404 Not Found):**
-```json
-{
-  "erro": "Cliente não encontrado"
-}
+### ✅ **4. Filtros Combinados**
+```bash
+# Clientes de SP com "Silva" no nome
+curl "http://localhost:8080/clientes?cidade=São Paulo&nome=Silva"
 ```
 
-## 🏗️ Estrutura do Projeto
+---
 
-```
-farmup-challenge/
-├── server.js              # Arquivo principal que inicia o servidor
-├── routes/
-│   └── clientes.js        # Define os endpoints da API
-├── controllers/
-│   └── clientesController.js  # Lógica de negócio
-├── data/
-│   └── clientes.js        # Armazenamento em memória
-├── package.json           # Dependências e scripts
-└── README.md             # Documentação (este arquivo)
-```
-
-### Arquitetura em 3 Camadas
-
-1. **Camada de Rotas** (`routes/`): Define os endpoints HTTP e mapeia para os controladores
-2. **Camada de Controladores** (`controllers/`): Contém a lógica de negócio e validações
-3. **Camada de Dados** (`data/`): Gerencia o armazenamento e acesso aos dados
-
-## 🧪 Testando a API
-
-### Sequência de testes completa
+## 🧪 Teste Rápido (30 segundos)
 
 ```bash
-# 1. Verificar se o servidor está rodando
-curl http://localhost:3000/
+# 1. API Status
+curl http://localhost:8080/
 
-# 2. Listar todos os clientes (deve ter 2 clientes iniciais)
-curl http://localhost:3000/clientes
+# 2. Listar clientes iniciais
+curl http://localhost:8080/clientes
 
-# 3. Buscar um cliente específico
-curl http://localhost:3000/clientes/1
+# 3. Abrir frontend
+# http://localhost:5173
 
-# 4. Criar um novo cliente
-curl -X POST http://localhost:3000/clientes \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Ana Costa",
-    "email": "ana@exemplo.com",
-    "telefone": "(41) 98888-7777",
-    "cidade": "Curitiba"
-  }'
-
-# 5. Listar novamente para ver o novo cliente
-curl http://localhost:3000/clientes
-
-# 6. Atualizar o cliente criado (use o ID retornado)
-curl -X PUT http://localhost:3000/clientes/3 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "nome": "Ana Costa Silva",
-    "email": "ana.costa@exemplo.com",
-    "telefone": "(41) 98888-7777",
-    "cidade": "Curitiba"
-  }'
-
-# 7. Remover o cliente
-curl -X DELETE http://localhost:3000/clientes/3
-
-# 8. Tentar buscar o cliente removido (deve retornar erro 404)
-curl http://localhost:3000/clientes/3
+# 4. 📚 Documentação Swagger (NOVO!)
+# http://localhost:8080/docs
 ```
 
-### Testando com ferramentas gráficas
+**Para testes completos:** Consulte `TESTE_MANUAL.md`  
+**Dúvidas?** Entre em contato via WhatsApp: [(88) 99630-0791](https://wa.me/5588996300791?text=me%20chame%20no%20whatsapp!)  
+**Demonstração:** Veja os vídeos oficiais acima 📹
 
-Você também pode testar usando:
-- **Postman**: Importe os endpoints e teste visualmente
-- **Insomnia**: Alternativa ao Postman
-- **Thunder Client**: Extensão do VS Code
+---
 
-## 📖 Aprendizados
+## 🚨 Solução de Problemas Comuns
 
-Este projeto demonstra conceitos fundamentais:
+### API não inicia
+```bash
+cd app/api && npm install && npm start
+```
 
-- **REST API**: Padrão de arquitetura para APIs web
-- **CRUD**: Operações básicas de banco de dados
-- **Express.js**: Framework web minimalista para Node.js
-- **Arquitetura em camadas**: Separação de responsabilidades
-- **HTTP Status Codes**: 200, 201, 204, 400, 404
-- **JSON**: Formato de troca de dados
-- **Middleware**: Processamento de requisições (express.json)
+### Frontend não carrega clientes
+```bash
+# Verificar se API está rodando
+curl http://localhost:8080/clientes
+```
 
-## 🤝 Contribuindo
+### Erro CORS
+- Verificar se API está na porta 8080
+- URL no frontend: `app/client/src/services/api.js`
 
-Este é um projeto educacional. Sugestões e melhorias são bem-vindas!
+### Porta ocupada
+```bash
+# Windows
+netstat -ano | findstr :8080
+taskkill /PID <numero> /F
+```
 
-## 📝 Licença
+---
 
-ISC
+## 🎯 Arquitetura dos Componentes
 
-## 👨‍💻 Autor
+```
+App.jsx (Estado Global)
+  ↓
+MainLayout (Container Principal)
+  ├─→ Header (Navegação)
+  ├─→ ClientList (Lista + Grid responsivo)
+  ├─→ ClientForm (Modal + Validação)
+  └─→ Snackbar (Notificações)
+```
 
-Desenvolvido como parte do desafio de estágio FarmUp 
+### Responsividade
+- **Desktop**: Layout em grid 2 colunas
+- **Mobile**: Empilhamento vertical
+- **Tablet**: Adaptação automática
+
+---
+
+## 🔮 Próximas Evoluções
+
+<details>
+<summary>💡 Roadmap de melhorias</summary>
+
+### Funcionalidades
+- [ ] Edição inline de clientes
+- [ ] Paginação para grandes volumes
+- [ ] Busca em tempo real
+- [ ] Exportar/Importar dados
+- [ ] Dashboard com estatísticas
+
+### Técnico
+- [ ] Banco de dados (PostgreSQL)
+- [ ] Autenticação JWT
+- [ ] Testes automatizados
+- [ ] CI/CD Pipeline
+- [ ] Monitoramento de logs
+
+### UX/UI
+- [ ] Tema escuro/claro
+- [ ] Animações de transição
+- [ ] Loading skeletons
+- [ ] Offline support
+- [ ] PWA features
+
+</details>
+
+---
+
+## 📄 Licença
+
+ISC © FarmUp Challenge
+
+---
+
+**Status:** ✅ Sistema completo - Pronto para produção
+
+**Desenvolvido com ❤️ para o FarmUp Challenge**
+

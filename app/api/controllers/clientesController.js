@@ -37,8 +37,18 @@ function erroIdInvalido(res) {
 
 // Lista todos os clientes
 function listarClientes(req, res) {
-  const clientes = clientesData.obterTodos();
-  res.json(clientes);
+  const { cidade, nome } = req.query;
+  let resultado = clientesData.obterTodos();
+
+  if (cidade) {
+    resultado = resultado.filter(c => c.cidade.toLowerCase() === cidade.toLowerCase());
+  }
+
+  if (nome) {
+    resultado = resultado.filter(c => c.nome.toLowerCase().includes(nome.toLowerCase()));
+  }
+
+  res.json(resultado);
 }
 
 // Busca um cliente específico por ID
@@ -64,6 +74,11 @@ function criarCliente(req, res) {
     return erroValidacao(res);
   }
   
+  const emailExistente = clientesData.obterTodos().find(c => c.email === email);
+  if (emailExistente) {
+    return res.status(409).json({ message: 'E-mail já cadastrado.' });
+  }
+
   const novoCliente = clientesData.criar({
     nome, email, telefone, cidade
   });

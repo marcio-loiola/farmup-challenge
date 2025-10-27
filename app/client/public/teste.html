@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Integração Front-Back</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .result {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Integração Front-Back</h1>
+    <p>Este arquivo testa a conexão entre o frontend (porta 3000) e o backend (porta 8080)</p>
+    
+    <button onclick="testarConexao()">🔍 Testar Conexão API</button>
+    <button onclick="listarClientes()">📋 Listar Clientes</button>
+    <button onclick="testarCriarCliente()">➕ Criar Cliente Teste</button>
+    
+    <div id="resultado"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080';
+        
+        function mostrarResultado(conteudo, tipo = 'result') {
+            document.getElementById('resultado').innerHTML = 
+                `<div class="${tipo}">${conteudo}</div>`;
+        }
+        
+        async function testarConexao() {
+            try {
+                mostrarResultado('🔄 Testando conexão...', 'result');
+                const response = await fetch(`${API_BASE}/`);
+                const data = await response.json();
+                mostrarResultado(`✅ Conexão bem-sucedida!\n${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                mostrarResultado(`❌ Erro de conexão:\n${error.message}`, 'error');
+            }
+        }
+        
+        async function listarClientes() {
+            try {
+                mostrarResultado('🔄 Buscando clientes...', 'result');
+                const response = await fetch(`${API_BASE}/clientes`);
+                const data = await response.json();
+                mostrarResultado(`✅ Clientes encontrados (${data.length}):\n${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                mostrarResultado(`❌ Erro ao buscar clientes:\n${error.message}`, 'error');
+            }
+        }
+        
+        async function testarCriarCliente() {
+            try {
+                mostrarResultado('🔄 Criando cliente teste...', 'result');
+                const novoCliente = {
+                    nome: 'Cliente Teste',
+                    email: `teste${Date.now()}@exemplo.com`,
+                    telefone: '(11) 99999-9999',
+                    cidade: 'São Paulo'
+                };
+                
+                const response = await fetch(`${API_BASE}/clientes`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(novoCliente)
+                });
+                
+                const data = await response.json();
+                mostrarResultado(`✅ Cliente criado com sucesso!\n${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                mostrarResultado(`❌ Erro ao criar cliente:\n${error.message}`, 'error');
+            }
+        }
+    </script>
+</body>
+</html>
