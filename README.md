@@ -2,6 +2,18 @@
 
 Sistema fullstack para gerenciar cadastro de clientes desenvolvido com Node.js, Express, React e Material-UI.
 
+## 🎥 Demonstração Oficial
+
+### 📹 **Vídeos das Funcionalidades:**
+
+**🎯 Demonstração Completa do Sistema:**
+- 👆 [**Vídeo 1 - Funcionalidades Principais**](https://www.loom.com/share/ac79cb801f3641aabe4fc00c1f9772ca)
+
+**🔧 Demonstração Técnica e Recursos Avançados:**
+- 👆 [**Vídeo 2 - Recursos Bônus e API**](https://www.loom.com/share/480c03d509db4089b888c0a46060f549)
+
+*Assista aos vídeos para ver o sistema funcionando na prática!*
+
 ---
 
 ## 🏗️ Arquitetura
